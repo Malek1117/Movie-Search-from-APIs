@@ -36,12 +36,15 @@
                 outline: none;
                 font-size: 3rem;
                 border-radius: 1rem;
-                background-color: var(--transWhite);
+                background-color: transparent;
+                color: var(--transWhite);
+                border-bottom: 0.5rem solid var(--transWhite);
+                
             }
 
             input:hover {
-                background-color: var(--rangularWhite);
                 font-weight: 600;
+                
             }
 
             button {
@@ -85,10 +88,15 @@
                 width: 1.8rem;
                 height: 1.8rem;
             }
+            div>div{
+                font-size: 3rem;
+                color: rgb(230, 198, 21);
+                padding: 1rem 0rem;
+            }
         </style>
     </head>
     <body>
-        <h1>Search Movie Details from APIs </h1>
+        <h1>Movie Search Engine</h1>
         <form id="form">
             <input type="text" id="movieName" placeholder="Search Movie Here" />
             <button onclick="showMovieData(event)">Search</button>
@@ -130,8 +138,15 @@
             let rating = document.createElement('p');
             rating.innerHTML = `<span>IMDb Rating :</span>  <img src=${"./image/star.png"} /> ${x.imdbRating} / 10`;
 
+            if(x.imdbRating > 8.5){
+                let tag_div = document.createElement('div');
+                tag_div.innerText = "Recommended";
+                tag_div.style.textAlign = "center";
 
-            mainDiv.append(img, name, year, rating);
+                mainDiv.append(tag_div, img, name, year, rating);
+            } else{
+                mainDiv.append(img, name, year, rating);
+            }
 
         } else {
             mainDiv.style.paddingBottom = "0rem";
