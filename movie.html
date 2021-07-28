@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Movie Search</title>
+        <style>
+            * {
+                font-family: 'Mulish', sans-serif;
+            }
+
+            :root {
+                --rangularWhite: white;
+                --transWhite: rgba(255, 255, 255, 0.8);
+                --navyBlue: #141b29;
+                font-size: 62.5%;
+            }
+
+            body {
+                background-color: var(--navyBlue);
+                text-align: center;
+            }
+
+            form {
+                display: flex;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+
+            h1 {
+                color: var(--transWhite);
+                font-size: 5rem;
+            }
+
+            input {
+                width: 50rem;
+                padding: 1rem;
+                outline: none;
+                font-size: 3rem;
+                border-radius: 1rem;
+                background-color: var(--transWhite);
+            }
+
+            input:hover {
+                background-color: var(--rangularWhite);
+                font-weight: 600;
+            }
+
+            button {
+                font-size: 2rem;
+                border-radius: 1rem;
+                margin-left: 2rem;
+                background-color: var(--transWhite);
+            }
+
+            button:hover {
+                background-color: var(--rangularWhite);
+                cursor: pointer;
+            }
+
+            #data {
+                margin: auto;
+                width: 25%;
+                margin-top: 3rem;
+                background-color: #252a36;
+                border-radius: 1rem;
+                text-align: left;
+            }
+
+            #data>img {
+                width: 100%;
+                height: 50rem;
+                border-radius: 1rem 1rem 0rem 0rem;
+            }
+
+            #data>p {
+                font-size: 3rem;
+                color: var(--transWhite);
+                margin-left: 2rem;
+            }
+
+            #data span {
+                font-size: 2.5rem;
+            }
+
+            p>img {
+                width: 1.8rem;
+                height: 1.8rem;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Search Movie Details from APIs </h1>
+        <form id="form">
+            <input type="text" id="movieName" placeholder="Search Movie Here" />
+            <button onclick="showMovieData(event)">Search</button>
+        </form>
+        <div id="data"></div>
+    </body>
+</html>
+<script>
+    async function showMovieData(e) {
+        e.preventDefault();
+        let movieName = document.getElementById('movieName').value;
+
+        try {
+            let response = await fetch(`http://www.omdbapi.com/?apikey=98ede869&t=${movieName}`);
+            let detail = await response.json();
+            appendData(detail);
+        } catch (err) {
+            console.log("err:", err);
+        }
+    }
+
+    function appendData(x) {
+        let mainDiv = document.getElementById('data');
+        mainDiv.innerHTML = null;
+
+        if (x.Response != "False") {
+
+            mainDiv.style.paddingBottom = "0.7rem";
+
+            let img = document.createElement('img');
+            img.src = x.Poster;
+
+            let name = document.createElement('p');
+            name.innerHTML = `<span>Movie :</span> ${x.Title}`;
+
+            let year = document.createElement('p');
+            year.innerHTML = `<span>Release Year :</span> ${x.Year}`
+
+            let rating = document.createElement('p');
+            rating.innerHTML = `<span>IMDb Rating :</span>  <img src=${"./image/star.png"} /> ${x.imdbRating} / 10`;
+
+
+            mainDiv.append(img, name, year, rating);
+
+        } else {
+            mainDiv.style.paddingBottom = "0rem";
+            alert('Please enter correct movie name !!');
+
+        }
+
+    }
+
+</script>
