@@ -31,7 +31,7 @@
             }
 
             input {
-                width: 50rem;
+                width: 60rem;
                 padding: 1rem;
                 outline: none;
                 font-size: 3rem;
@@ -58,7 +58,7 @@
 
             #data {
                 margin: auto;
-                width: 25%;
+                width: 28%;
                 margin-top: 3rem;
                 background-color: #252a36;
                 border-radius: 1rem;
@@ -135,8 +135,11 @@
 
         } else {
             mainDiv.style.paddingBottom = "0rem";
-            alert('Please enter correct movie name !!');
+            
+            let img = document.createElement('img');
+            img.src = "https://th.bing.com/th/id/R.3b378d53f780a689b6a9da238dfa3dfa?rik=iq%2bGAOosLcH82Q&riu=http%3a%2f%2fgifimage.net%2fwp-content%2fuploads%2f2017%2f09%2f404-gif-8.gif&ehk=e5I3q%2fjkKsZoji1HZxOvci9TkyR0r6Ml3%2bf079I%2bNrc%3d&risl=&pid=ImgRaw";
 
+            mainDiv.append(img);
         }
 
     }
